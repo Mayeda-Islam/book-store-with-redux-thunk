@@ -1,4 +1,4 @@
-import { editBook } from "../../book/action";
+import { editBook } from "../book/action";
 
 export const updateBooks = (bookId, bookDetails) => {
   return async (dispatch) => {
