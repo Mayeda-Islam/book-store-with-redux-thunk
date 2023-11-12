@@ -1,4 +1,4 @@
-import { ADDED, DELETE, LOADED } from "./actiontType";
+import { ADDED, DELETE, LOADED } from "./actionType";
 import { initalState } from "./initialState";
 
 export const bookReducer = (state = initalState, action) => {

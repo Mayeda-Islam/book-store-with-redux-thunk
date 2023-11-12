@@ -1,12 +1,12 @@
-import { ALL, FEATURE } from "./actionType";
+import { ALL, FEATURE } from "./typeType";
 
 export const all = () => {
   return {
-    action: ALL,
+    type: ALL,
   };
 };
 export const feature = () => {
   return {
-    action: FEATURE,
+    type: FEATURE,
   };
 };

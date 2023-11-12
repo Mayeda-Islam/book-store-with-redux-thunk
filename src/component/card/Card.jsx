@@ -50,7 +50,7 @@ const Card = () => {
 
           <div className="space-y-2 mt-4 h-full">
             <h4 className="lws-bookName">
-              Life Hurts: A Doctor's Personal Journey Through Anorexia
+              Life Hurts: A Doctor&apos;s Personal Journey Through Anorexia
             </h4>
             <p className="lws-author">Dr Elizabeth McNaught</p>
             <div className="lws-stars">
