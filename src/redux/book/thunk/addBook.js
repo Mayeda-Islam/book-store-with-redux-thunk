@@ -1,15 +1,18 @@
-export const addBooks = (bookDetails) => {
+import { addBook } from "../action";
+
+export const postBooks = (bookDetails) => {
   return async (dispatch) => {
-    const res = fetch("http://localhost:9000/books", {
+    const response = await fetch("http://localhost:9000/books", {
       method: "POST",
       body: JSON.stringify({
-        bookDetails,
+        ...bookDetails,
       }),
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
     });
-    const result = await res.json();
-    dispatch(addBooks(result));
+
+    const result = await response.json();
+    dispatch(addBook(result));
   };
 };
