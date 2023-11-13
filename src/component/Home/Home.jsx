@@ -2,14 +2,23 @@ import { useEffect } from "react";
 import Card from "../card/Card";
 import AddBook from "../addbook/AddBook";
 import Navbar from "../navbar/Navbar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../redux/book/thunk/getBook";
+import { all, feature } from "../../redux/filter/action";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
+  console.log(books);
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
+  const handleFilterAll = () => {
+    dispatch(all(books));
+  };
+  const handleFilterFeature = () => {
+    dispatch(feature(books));
+  };
   return (
     <>
       <Navbar />
@@ -20,10 +29,18 @@ const Home = () => {
               <h4 className="mt-2 text-xl font-bold">Book List</h4>
 
               <div className="flex items-center space-x-4">
-                <button className="filter-btn active-filter" id="lws-filterAll">
+                <button
+                  onClick={handleFilterAll}
+                  className="filter-btn active-filter"
+                  id="lws-filterAll"
+                >
                   All
                 </button>
-                <button className="filter-btn" id="lws-filterFeatured">
+                <button
+                  onClick={handleFilterFeature}
+                  className="filter-btn bg-white"
+                  id="lws-filterFeatured"
+                >
                   Featured
                 </button>
               </div>

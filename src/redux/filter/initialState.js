@@ -1,4 +1,4 @@
 export const initalState = {
-  feature: [],
+  feature: false,
   all: [],
 };
