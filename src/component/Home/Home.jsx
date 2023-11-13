@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Card from "../card/Card";
 import AddBook from "../addbook/AddBook";
 import Navbar from "../navbar/Navbar";
 import { useDispatch } from "react-redux";
-import { getData } from "../../redux/filter/thunk/getBook";
+import { getData } from "../../redux/book/thunk/getBook";
 
 const Home = () => {
   const dispatch = useDispatch();
