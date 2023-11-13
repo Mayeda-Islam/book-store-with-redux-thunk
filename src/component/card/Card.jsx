@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteBooks } from "../../redux/book/thunk/deleteBook";
 
 const Card = () => {
   const books = useSelector((state) => state.books);
-  console.log(books, "line 5");
-  const { name, author, thumbnail, price, rating, featured, id } = books;
-  console.log(books, "from card");
+  const dispatch = useDispatch();
+  const handleDelete = (bookId) => {
+    dispatch(deleteBooks(bookId));
+  };
   return (
     <div className="lws-bookContainer">
       {books.map((book) => {
@@ -34,7 +36,10 @@ const Card = () => {
                       />
                     </svg>
                   </button>
-                  <button className="lws-delete">
+                  <button
+                    onClick={() => handleDelete(book.id)}
+                    className="lws-delete"
+                  >
                     <svg
                       fill="none"
                       viewBox="0 0 24 24"
