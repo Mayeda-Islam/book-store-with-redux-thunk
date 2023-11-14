@@ -4,21 +4,25 @@ import AddBook from "../addbook/AddBook";
 import Navbar from "../navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../redux/book/thunk/getBook";
-import { all, feature } from "../../redux/filter/action";
+import { feature } from "../../redux/filter/action";
+import { loadedBook } from "../../redux/book/action";
 
 const Home = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books);
-  console.log(books);
+
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
-  const handleFilterAll = () => {
-    dispatch(all(books));
+
+  const handleFilterReset = () => {
+    dispatch(feature(false));
   };
+
   const handleFilterFeature = () => {
-    dispatch(feature(books));
+    dispatch(feature(true));
   };
+
   return (
     <>
       <Navbar />
@@ -30,7 +34,7 @@ const Home = () => {
 
               <div className="flex items-center space-x-4">
                 <button
-                  onClick={handleFilterAll}
+                  onClick={handleFilterReset}
                   className="filter-btn active-filter"
                   id="lws-filterAll"
                 >

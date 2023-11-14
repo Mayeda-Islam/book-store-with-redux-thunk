@@ -1,14 +1,13 @@
-import { ALL, FEATURE } from "./actionType";
+import { FEATURE, RESETALL } from "./actionType";
 
-export const all = (allBooks) => {
+export const resetAll = () => {
   return {
-    type: ALL,
-    payload: allBooks,
+    type: RESETALL,
   };
 };
-export const feature = (allBooks) => {
+export const feature = (featured) => {
   return {
     type: FEATURE,
-    payload: allBooks,
+    payload: featured,
   };
 };

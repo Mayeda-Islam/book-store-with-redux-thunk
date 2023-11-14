@@ -8,7 +8,7 @@ const AddBook = () => {
   const [thumbnail, setThumbnail] = useState("");
   const [price, setPrice] = useState("");
   const [rating, setRating] = useState("");
-  const [toggleCheck, setToggleCheck] = useState(true);
+  const [toggleCheck, setToggleCheck] = useState(false);
   const dispatch = useDispatch();
   const handleAddBook = (e) => {
     e.preventDefault();
@@ -98,10 +98,11 @@ const AddBook = () => {
           <div className="flex items-center">
             <input
               id="input-Bookfeatured"
+              // checked={toggleCheck}
               type="checkbox"
               name="featured"
               className="w-4 h-4"
-              onChange={(e) => setToggleCheck(e.target.checked)}
+              onChange={() => setToggleCheck(!toggleCheck)}
             />
             <label htmlFor="featured" className="ml-2 text-sm">
               {" "}

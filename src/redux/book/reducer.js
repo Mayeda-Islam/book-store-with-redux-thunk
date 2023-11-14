@@ -7,7 +7,6 @@ export const bookReducer = (state = initalState, action) => {
       return [...state, action.payload];
     }
     case LOADED: {
-      console.log(action.payload, "from book reducer");
       return action.payload;
     }
     case DELETE: {

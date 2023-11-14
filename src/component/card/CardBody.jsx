@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 const CardBody = ({ book, handleDelete }) => {
-  console.log(book, "from cardbody");
   return (
     <div className="book-card">
       <img

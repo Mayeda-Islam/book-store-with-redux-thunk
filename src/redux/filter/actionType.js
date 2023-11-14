@@ -1,2 +1,2 @@
-export const ALL = "all";
+export const RESETALL = "all";
 export const FEATURE = "featured";

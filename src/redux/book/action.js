@@ -7,7 +7,6 @@ export const addBook = (bookDetails) => {
   };
 };
 export const loadedBook = (bookDetails) => {
-  console.log(bookDetails, "from action ");
   return {
     type: LOADED,
     payload: bookDetails,

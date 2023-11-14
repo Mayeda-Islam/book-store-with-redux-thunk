@@ -1,13 +1,12 @@
-import { ALL, FEATURE } from "./actionType";
+import { FEATURE, RESETALL } from "./actionType";
 import { initalState } from "./initialState";
 
 export const filterReducer = (state = initalState, action) => {
   switch (action?.type) {
-    case ALL:
-      return action.payload;
+    case RESETALL:
+      return { ...state, featured: false };
     case FEATURE: {
-      const featuredBooks = action.payload.filter((book) => book.featured);
-      return featuredBooks;
+      return { ...state, featured: action.payload };
     }
     default:
       return state;

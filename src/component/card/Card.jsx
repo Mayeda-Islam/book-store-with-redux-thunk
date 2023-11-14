@@ -4,16 +4,23 @@ import CardBody from "./CardBody";
 
 const Card = () => {
   const books = useSelector((state) => state.books);
-  const featuredBooks = useSelector((state) => state.filter);
+  const { featured } = useSelector((state) => state.filter);
   console.log(books);
+  let filteredBooks = [];
   const dispatch = useDispatch();
+  console.log(featured);
   const handleDelete = (bookId) => {
     dispatch(deleteBooks(bookId));
   };
+  if (featured) {
+    filteredBooks = books.filter((book) => book.featured);
+  } else {
+    filteredBooks = books;
+  }
+
   return (
     <div className="lws-bookContainer">
-      {books.map((book) => {
-        console.log(book);
+      {filteredBooks.map((book) => {
         return (
           <CardBody key={book.id} book={book} handleDelete={handleDelete} />
         );
