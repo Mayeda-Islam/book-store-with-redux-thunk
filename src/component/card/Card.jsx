@@ -5,10 +5,11 @@ import CardBody from "./CardBody";
 const Card = () => {
   const books = useSelector((state) => state.books);
   const { featured, searchText } = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
 
   let filteredBooks = books || [];
-  const dispatch = useDispatch();
-  console.log(featured);
+
+  //delete books
   const handleDelete = (bookId) => {
     dispatch(deleteBooks(bookId));
   };
@@ -19,7 +20,6 @@ const Card = () => {
       book.name.toLowerCase().includes(searchText.toLowerCase())
     );
   }
-  console.log(filteredBooks);
 
   //featured filter
   if (featured) {
