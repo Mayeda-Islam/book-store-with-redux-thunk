@@ -4,18 +4,26 @@ import CardBody from "./CardBody";
 
 const Card = () => {
   const books = useSelector((state) => state.books);
-  const { featured } = useSelector((state) => state.filter);
-  console.log(books);
-  let filteredBooks = [];
+  const { featured, searchText } = useSelector((state) => state.filter);
+
+  let filteredBooks = books || [];
   const dispatch = useDispatch();
   console.log(featured);
   const handleDelete = (bookId) => {
     dispatch(deleteBooks(bookId));
   };
+
+  //search by text(search filter)
+  if (searchText) {
+    filteredBooks = books.filter((book) =>
+      book.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+  }
+  console.log(filteredBooks);
+
+  //featured filter
   if (featured) {
     filteredBooks = books.filter((book) => book.featured);
-  } else {
-    filteredBooks = books;
   }
 
   return (

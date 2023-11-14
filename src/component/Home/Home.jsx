@@ -5,7 +5,6 @@ import Navbar from "../navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../../redux/book/thunk/getBook";
 import { feature } from "../../redux/filter/action";
-import { loadedBook } from "../../redux/book/action";
 
 const Home = () => {
   const dispatch = useDispatch();
