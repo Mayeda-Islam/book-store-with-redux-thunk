@@ -18,9 +18,10 @@ export const deleteBook = (bookId) => {
     payload: bookId,
   };
 };
-export const editBook = (bookId, bookDetails) => {
+export const editBook = (bookDetails) => {
+  console.log(bookDetails, "from line 22");
   return {
     type: EDIT,
-    payload: { id: bookId, updatedBook: bookDetails },
+    payload: bookDetails,
   };
 };

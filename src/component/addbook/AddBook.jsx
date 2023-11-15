@@ -1,15 +1,20 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { postBooks } from "../../redux/book/thunk/addBook";
+import { editBook } from "../../redux/book/action";
+import { updateBooks } from "../../redux/book/thunk/updateBook";
 
 const AddBook = () => {
-  const [bookName, setBookName] = useState("");
-  const [authorName, setAuthorName] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
-  const [price, setPrice] = useState("");
-  const [rating, setRating] = useState("");
+  const { editableBook } = useSelector((state) => state.books);
+  const [bookName, setBookName] = useState(editableBook.name || "");
+  const [authorName, setAuthorName] = useState(editableBook.author || "");
+  const [thumbnail, setThumbnail] = useState(editableBook.thumbnail || "");
+  const [price, setPrice] = useState(editableBook.price || "");
+  const [rating, setRating] = useState(editableBook.rating || "");
   const [toggleCheck, setToggleCheck] = useState(false);
+  const formRef = useRef(null);
   const dispatch = useDispatch();
+
   const handleAddBook = (e) => {
     e.preventDefault();
     const bookDetails = {
@@ -22,15 +27,42 @@ const AddBook = () => {
     };
     dispatch(postBooks(bookDetails));
     e.target.reset();
+  };
 
-    console.log(bookName, authorName, thumbnail, price, rating, toggleCheck);
+  useEffect(() => {
+    if (editableBook) {
+      setToggleCheck(editableBook.featured);
+    }
+    // Reset the form by setting its values to their default values
+    formRef.current.reset();
+  }, [editableBook]);
+
+  const handleUpdateBook = () => {
+    const bookDetails = {
+      name: bookName,
+      author: authorName,
+      thumbnail: thumbnail,
+      price: price,
+      rating: rating,
+      featured: toggleCheck,
+    };
+    dispatch(updateBooks(editableBook.id, bookDetails));
+    dispatch(editBook({}));
+    formRef.current.reset();
   };
 
   return (
     <div>
       <div className="p-4 overflow-hidden bg-white shadow-cardShadow rounded-md">
-        <h4 className="mb-8 text-xl font-bold text-center">Add New Book</h4>
-        <form onSubmit={(e) => handleAddBook(e)} className="book-form">
+        <h4 className="mb-8 text-xl font-bold text-center">
+          {" "}
+          {editableBook ? "Update Book" : "Add Book"}
+        </h4>
+        <form
+          ref={formRef}
+          onSubmit={(e) => handleAddBook(e)}
+          className="book-form"
+        >
           <div className="space-y-2">
             <label htmlFor="name">Book Name</label>
             <input
@@ -39,6 +71,7 @@ const AddBook = () => {
               type="text"
               id="input-Bookname"
               name="bookName"
+              defaultValue={editableBook ? editableBook.name : ""}
               onChange={(e) => setBookName(e.target.value)}
             />
           </div>
@@ -47,6 +80,7 @@ const AddBook = () => {
             <label htmlFor="category">Author</label>
             <input
               required
+              defaultValue={editableBook ? editableBook.author : ""}
               className="text-input"
               type="text"
               id="input-Bookauthor"
@@ -62,6 +96,7 @@ const AddBook = () => {
               className="text-input"
               type="text"
               id="input-Bookthumbnail"
+              defaultValue={editableBook ? editableBook.thumbnail : ""}
               name="thumbnail"
               onChange={(e) => setThumbnail(e.target.value)}
             />
@@ -72,10 +107,13 @@ const AddBook = () => {
               <label htmlFor="price">Price</label>
               <input
                 required
+                defaultValue={editableBook ? editableBook.price : ""}
                 className="text-input"
                 type="number"
                 id="input-Bookprice"
                 name="price"
+                min="1"
+                max="5"
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
@@ -87,6 +125,7 @@ const AddBook = () => {
                 className="text-input"
                 type="number"
                 id="input-Bookrating"
+                defaultValue={editableBook ? editableBook.rating : ""}
                 name="rating"
                 min="1"
                 max="5"
@@ -98,7 +137,7 @@ const AddBook = () => {
           <div className="flex items-center">
             <input
               id="input-Bookfeatured"
-              // checked={toggleCheck}
+              checked={toggleCheck}
               type="checkbox"
               name="featured"
               className="w-4 h-4"
@@ -110,9 +149,15 @@ const AddBook = () => {
             </label>
           </div>
 
-          <button type="submit" className="submit" id="submit">
-            Add Book
-          </button>
+          {editableBook ? (
+            <button onClick={handleUpdateBook} type="button" className="submit">
+              Update Book
+            </button>
+          ) : (
+            <button type="submit" className="submit">
+              Add Book
+            </button>
+          )}
         </form>
       </div>
     </div>

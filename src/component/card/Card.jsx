@@ -28,7 +28,7 @@ const Card = () => {
 
   return (
     <div className="lws-bookContainer">
-      {filteredBooks.map((book) => {
+      {filteredBooks.books.map((book) => {
         return (
           <CardBody key={book.id} book={book} handleDelete={handleDelete} />
         );

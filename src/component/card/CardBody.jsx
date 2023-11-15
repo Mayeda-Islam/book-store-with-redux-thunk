@@ -1,5 +1,14 @@
+import { useEffect, useState } from "react";
+import { editBook } from "../../redux/book/action";
+import { useDispatch } from "react-redux";
+
 /* eslint-disable react/prop-types */
 const CardBody = ({ book, handleDelete }) => {
+  const dispatch = useDispatch();
+
+  const handleEdit = (book) => {
+    dispatch(editBook(book));
+  };
   return (
     <div className="book-card">
       <img
@@ -7,11 +16,25 @@ const CardBody = ({ book, handleDelete }) => {
         src={book.thumbnail}
         alt="book"
       />
-      <div className="flex-1 h-full pr-2 pt-2 flex flex-col">
-        <div className="flex items-center justify-between">
-          <span className="badge-success lws-Badge">featured</span>
-          <div className="text-gray-500 space-x-2">
-            <button className="lws-edit">
+      <div className="flex-1 h-full pr-2 pt-2 flex flex-col ">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: book.featured ? "space-between " : "flex-end",
+          }}
+
+          // {`flex items-center ${book.featured ? "justify-between" : "justify-end"}`}
+        >
+          <div
+            className={`badge-success lws-Badge ${
+              book.featured ? "block" : "hidden"
+            }`}
+          >
+            featured
+          </div>
+          <div className={`text-gray-500 space-x-2`}>
+            <button onClick={() => handleEdit(book)} className="lws-edit">
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
