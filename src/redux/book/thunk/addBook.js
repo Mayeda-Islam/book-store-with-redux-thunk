@@ -13,6 +13,7 @@ export const postBooks = (bookDetails) => {
     });
 
     const result = await response.json();
-    dispatch(addBook(result));
+    console.log(result);
+    dispatch(addBook(bookDetails));
   };
 };

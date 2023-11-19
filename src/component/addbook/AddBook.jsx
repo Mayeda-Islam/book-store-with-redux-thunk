@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postBooks } from "../../redux/book/thunk/addBook";
-import { editBook } from "../../redux/book/action";
 import { updateBooks } from "../../redux/book/thunk/updateBook";
+import { selectedBook } from "../../redux/book/action";
 
 const AddBook = () => {
   const { editableBook } = useSelector((state) => state.books);
-  const [bookName, setBookName] = useState(editableBook.name || "");
-  const [authorName, setAuthorName] = useState(editableBook.author || "");
-  const [thumbnail, setThumbnail] = useState(editableBook.thumbnail || "");
-  const [price, setPrice] = useState(editableBook.price || "");
-  const [rating, setRating] = useState(editableBook.rating || "");
-  const [toggleCheck, setToggleCheck] = useState(false);
-  const formRef = useRef(null);
+  console.log(editableBook);
   const dispatch = useDispatch();
+
+  const [bookName, setBookName] = useState("");
+  const [authorName, setAuthorName] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [price, setPrice] = useState("");
+  const [rating, setRating] = useState("");
+  const [toggleCheck, setToggleCheck] = useState(false);
+
+  const formRef = useRef(null);
 
   const handleAddBook = (e) => {
     e.preventDefault();
@@ -32,6 +35,11 @@ const AddBook = () => {
   useEffect(() => {
     if (editableBook) {
       setToggleCheck(editableBook.featured);
+      setBookName(editableBook.name);
+      setAuthorName(editableBook.author);
+      setThumbnail(editableBook.thumbnail);
+      setPrice(editableBook.price);
+      setRating(editableBook.rating);
     }
     // Reset the form by setting its values to their default values
     formRef.current.reset();
@@ -47,8 +55,8 @@ const AddBook = () => {
       featured: toggleCheck,
     };
     dispatch(updateBooks(editableBook.id, bookDetails));
-    dispatch(editBook({}));
     formRef.current.reset();
+    dispatch(selectedBook({}));
   };
 
   return (
@@ -149,13 +157,13 @@ const AddBook = () => {
             </label>
           </div>
 
-          {editableBook ? (
-            <button onClick={handleUpdateBook} type="button" className="submit">
-              Update Book
-            </button>
-          ) : (
+          {Object.keys(editableBook).length === 0 ? (
             <button type="submit" className="submit">
               Add Book
+            </button>
+          ) : (
+            <button onClick={handleUpdateBook} type="button" className="submit">
+              Update Book
             </button>
           )}
         </form>

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { editBook } from "../../redux/book/action";
+import { selectedBook } from "../../redux/book/action";
 import { useDispatch } from "react-redux";
 
 /* eslint-disable react/prop-types */
@@ -7,7 +6,7 @@ const CardBody = ({ book, handleDelete }) => {
   const dispatch = useDispatch();
 
   const handleEdit = (book) => {
-    dispatch(editBook(book));
+    dispatch(selectedBook(book));
   };
   return (
     <div className="book-card">

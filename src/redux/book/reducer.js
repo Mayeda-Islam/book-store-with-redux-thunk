@@ -1,4 +1,4 @@
-import { ADDED, DELETE, EDIT, LOADED } from "./actiontType";
+import { ADDED, DELETE, EDIT, LOADED, SELECTEDBOOK } from "./actiontType";
 import { initalState } from "./initialState";
 
 export const bookReducer = (state = initalState, action) => {
@@ -13,7 +13,19 @@ export const bookReducer = (state = initalState, action) => {
       const remainingBook = state.filter((book) => book.id !== action.payload);
       return { ...state, books: remainingBook };
     }
+
     case EDIT: {
+      console.log(action.payload);
+      const updatedList = state.books.map((obj) => {
+        if (obj.id === action.payload.id) {
+          return action.payload;
+        }
+        return obj;
+      });
+      return { ...state, books: updatedList };
+    }
+
+    case SELECTEDBOOK: {
       return { ...state, editableBook: action.payload };
     }
     default:

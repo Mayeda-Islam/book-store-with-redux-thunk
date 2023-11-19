@@ -3,7 +3,8 @@ import { deleteBooks } from "../../redux/book/thunk/deleteBook";
 import CardBody from "./CardBody";
 
 const Card = () => {
-  const books = useSelector((state) => state.books);
+  const { books } = useSelector((state) => state.books);
+  console.log(books, "from card");
   const { featured, searchText } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
@@ -23,12 +24,12 @@ const Card = () => {
 
   //featured filter
   if (featured) {
-    filteredBooks = books.filter((book) => book.featured);
+    filteredBooks = books?.filter((book) => book?.featured);
   }
 
   return (
     <div className="lws-bookContainer">
-      {filteredBooks.books.map((book) => {
+      {filteredBooks.map((book) => {
         return (
           <CardBody key={book.id} book={book} handleDelete={handleDelete} />
         );

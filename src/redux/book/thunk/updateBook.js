@@ -12,6 +12,7 @@ export const updateBooks = (bookId, bookDetails) => {
       },
     });
     const result = await res.json();
+    console.log(result, "from updated book");
     dispatch(editBook(result));
   };
 };

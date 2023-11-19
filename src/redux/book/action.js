@@ -1,4 +1,4 @@
-import { ADDED, DELETE, EDIT, LOADED } from "./actiontType";
+import { ADDED, DELETE, EDIT, LOADED, SELECTEDBOOK } from "./actiontType";
 
 export const addBook = (bookDetails) => {
   return {
@@ -18,10 +18,17 @@ export const deleteBook = (bookId) => {
     payload: bookId,
   };
 };
+
+export const selectedBook = (bookDetails) => {
+  return {
+    type: SELECTEDBOOK,
+    payload: { ...bookDetails },
+  };
+};
+
 export const editBook = (bookDetails) => {
-  console.log(bookDetails, "from line 22");
   return {
     type: EDIT,
-    payload: bookDetails,
+    payload: { ...bookDetails },
   };
 };
